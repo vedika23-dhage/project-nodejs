@@ -1,0 +1,25 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - echo $AWS_DEFAULT_REGION
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 058264490987.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - REPOSITORY_NAME="dockerimages"      
+      - REPOSITORY_URI=058264490987.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY_NAME
+  build:
+    commands:
+      # Frontend
+      - echo testing frontend application using rspec
+      - docker build -t $REPOSITORY_NAME:rails-test-rspec -f modules/pipeline/docker/frontend/test-rspec/app/dockerfile .
+      - docker tag $REPOSITORY_NAME:rails $REPOSITORY_URI:rails-${CODEBUILD_BUILD_NUMBER}
+      - docker push $REPOSITORY_URI:rails-${CODEBUILD_BUILD_NUMBER}
+
+      # Backend
+      - echo building frontend - tagging and pushing docker image.
+      - docker build -t $REPOSITORY_NAME:rails -f modules/pipeline/docker/frontend/app/dockerfile .
+      - docker tag $REPOSITORY_NAME:rails $REPOSITORY_URI:rails-${CODEBUILD_BUILD_NUMBER}
+      - docker push $REPOSITORY_URI:rails-${CODEBUILD_BUILD_NUMBER}
+  
+artifacts:
+  files: imagedefinitions.json
