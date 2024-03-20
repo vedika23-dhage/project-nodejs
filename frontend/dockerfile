@@ -1,5 +1,5 @@
 # Use official Node.js image as base
-FROM node:latest
+FROM 058264490987.dkr.ecr.ap-south-1.amazonaws.com/dockerimages:frontend-base
 
 # Set working directory
 WORKDIR /usr/src/app
