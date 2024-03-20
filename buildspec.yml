@@ -11,10 +11,8 @@ phases:
     commands:
       # Frontend
       - echo testing frontend application using rspec
-      - path=`pwd`
       - cd $path/frontend
-      - echo `ls`
-      # - docker build -t $REPOSITORY_NAME:frontend -f $path/frontend  .
+      - docker build -t $REPOSITORY_NAME:frontend .
       # - docker tag $REPOSITORY_NAME:frontend $REPOSITORY_URI:frontend-${CODEBUILD_BUILD_NUMBER}
       # - docker push $REPOSITORY_URI:frontend-${CODEBUILD_BUILD_NUMBER}
 
