@@ -14,8 +14,8 @@ phases:
       - path=`pwd`
       - cd $path/frontend
       - docker build -t $REPOSITORY_NAME:frontend .
-      - docker tag $REPOSITORY_NAME:frontend $REPOSITORY_URI:frotend-${CODEBUILD_BUILD_NUMBER}
-      - docker push $REPOSITORY_URI:frotend-${CODEBUILD_BUILD_NUMBER}
+      - docker tag $REPOSITORY_NAME:frontend $REPOSITORY_URI:frontend-${CODEBUILD_BUILD_NUMBER}
+      - docker push $REPOSITORY_URI:frontend-${CODEBUILD_BUILD_NUMBER}
 
       - cd $path/backend
       - echo building backend - tagging and pushing docker image.
