@@ -6,14 +6,15 @@ phases:
       # - echo $AWS_DEFAULT_REGION
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 058264490987.dkr.ecr.ap-south-1.amazonaws.com/dockerimages
       - REPOSITORY_NAME="dockerimages"      
-      - REPOSITORY_URI=058264490987.dkr.ecr.ap-south-1.amazonaws.com/dockerimages/dockerimages
-#   build:
-#     commands:
-#       # Frontend
-#       - echo testing frontend application using rspec
-#       - docker build -t $REPOSITORY_NAME:app -f /Users/vedika/Documents/Home-lab/project/frontend/dockerfile .
-#       - docker tag $REPOSITORY_NAME:app $REPOSITORY_URI:app-${CODEBUILD_BUILD_NUMBER}
-#       - docker push $REPOSITORY_URI:app-${CODEBUILD_BUILD_NUMBER}
+      - REPOSITORY_URI=058264490987.dkr.ecr.ap-south-1.amazonaws.com/$REPOSITORY_NAME
+  build:
+    commands:
+      # Frontend
+      - echo testing frontend application using rspec
+      - echo `pwd`
+      # - docker build -t $REPOSITORY_NAME:frontend -f /codebuild/output/src195093956/src/github.com/vedika23-dhage/project-nodejs  .
+      # - docker tag $REPOSITORY_NAME:frontend $REPOSITORY_URI:frontend-${CODEBUILD_BUILD_NUMBER}
+      # - docker push $REPOSITORY_URI:frontend-${CODEBUILD_BUILD_NUMBER}
 
 #       # Backend
 #       - echo building frontend - tagging and pushing docker image.
