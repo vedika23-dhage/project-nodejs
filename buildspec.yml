@@ -4,7 +4,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       # - echo $AWS_DEFAULT_REGION
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 058264490987.dkr.ecr.ap-south-1.amazonaws.com/dockerimages
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 058264490987.dkr.ecr.ap-south-1.amazonaws.com
       - REPO_FRONTEND=058264490987.dkr.ecr.ap-south-1.amazonaws.com/nodejs/frontend     
       - REPO_BACKEND=058264490987.dkr.ecr.ap-south-1.amazonaws.com/nodejs/backend
   build:
