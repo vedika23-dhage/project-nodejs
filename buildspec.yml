@@ -3,23 +3,22 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      # - echo $AWS_DEFAULT_REGION
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 058264490987.dkr.ecr.ap-south-1.amazonaws.com
       - REPO_FRONTEND=058264490987.dkr.ecr.ap-south-1.amazonaws.com/nodejs/frontend     
       - REPO_BACKEND=058264490987.dkr.ecr.ap-south-1.amazonaws.com/nodejs/backend
   build:
     commands:
       # Frontend
-      - echo testing frontend application using rspec
+      - echo testing frontend application
       - path=`pwd`
       - cd $path/frontend
-      - docker build -t $REPO_FRONTEND:frontend .
+      - docker build -t $REPO_FRONTEND:latest .
       - docker tag $REPO_FRONTEND:latest $REPO_FRONTEND:${CODEBUILD_BUILD_NUMBER}
       - docker push $REPO_FRONTEND:${CODEBUILD_BUILD_NUMBER}
 
       - cd $path/backend
       - echo building backend - tagging and pushing docker image.
-      - docker build -t $REPO_BACKEND:backend .
+      - docker build -t $REPO_BACKEND:latest .
       - docker tag $REPO_BACKEND:latest $REPO_BACKEND:${CODEBUILD_BUILD_NUMBER}
       - docker push $REPO_BACKEND:${CODEBUILD_BUILD_NUMBER}
 # artifacts:
